@@ -1,44 +1,52 @@
-const sheetName = "Iskcon Event Details";  // Change if your sheet name is different
+document.addEventListener("DOMContentLoaded", function () {
+    const sheetId = "1QFLzxYMmlhg0SV8C1cEXPxo9CaM1YKgU8zmQL0ybeEk"; // Your Google Sheets ID
+    const apiKey = "AIzaSyBuVqvwSK-NK2-GXyAsbpN49a1RxajCKwc"; // Your Google Sheets API Key
 
-const url = `https://sheets.googleapis.com/v4/spreadsheets/1QFLzxYMmlhg0SV8C1cEXPxo9CaM1YKgU8zmQL0ybeEk/values/Sheet1?key=AIzaSyBuVqvwSK-NK2-GXyAsbpN49a1RxajCKwc`;
+    // Define different sheets and their ranges
+    const sheets = [
+        { range: "Sheet1!A1:Z1000", elementId: "sheetData1", title: "Registered Students" },
+        { range: "Sheet2!A1:Z1000", elementId: "sheetData2", title: "ISKCON Group Members" }
+    ];
 
-fetch(url)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    if (!data.values || data.values.length === 0) {
-      throw new Error("No data found in the spreadsheet.");
-    }
-
-    console.log("Google Sheet Data:", data.values);
-
-    let table = "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse; width: 100%; text-align: left;'>";
-    
-    // Create table headers
-    table += "<tr style='background-color: #f2f2f2;'>";
-    data.values[0].forEach(header => {
-        table += `<th style='padding: 8px;'>${header}</th>`;
+    sheets.forEach(sheet => {
+        fetchSheetData(sheetId, sheet.range, apiKey, sheet.elementId, sheet.title);
     });
-    table += "</tr>";
+});
 
-    // Create table rows
-    for (let i = 1; i < data.values.length; i++) {
+function fetchSheetData(sheetId, range, apiKey, elementId, title) {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            displayData(data, elementId, title);
+        })
+        .catch(error => {
+            document.getElementById(elementId).innerHTML = "Error loading data.";
+            console.error("Error fetching data:", error);
+        });
+}
+
+function displayData(data, elementId, title) {
+    if (!data.values || data.values.length === 0) {
+        document.getElementById(elementId).innerHTML = "No data available.";
+        return;
+    }
+
+    let table = `<h2>${title}</h2><table border='1'>`;
+    data.values.forEach((row, index) => {
         table += "<tr>";
-        data.values[i].forEach(cell => {
-            table += `<td style='padding: 8px;'>${cell}</td>`;
+        row.forEach(cell => {
+            table += index === 0 ? `<th>${cell}</th>` : `<td>${cell}</td>`;
         });
         table += "</tr>";
-    }
-
+    });
     table += "</table>";
-    
-    document.getElementById("sheetData").innerHTML = table;
-  })
-  .catch(error => {
-    console.error("Error fetching data:", error);
-    document.getElementById("sheetData").innerHTML = `<p>Error loading data: ${error.message}</p>`;
-  });
+
+    document.getElementById(elementId).innerHTML = table;
+}
