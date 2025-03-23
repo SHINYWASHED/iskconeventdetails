@@ -30,5 +30,5 @@ async function fetchSheetData(sheetName, elementId) {
     }
 }
 
-// Fetch Data from Google Sheet
-fetchSheetData("Iskcon Event Details", "sheetData");
+// ✅ Update the sheet name here
+fetchSheetData("Iskcon_Event_Details", "sheetData");
