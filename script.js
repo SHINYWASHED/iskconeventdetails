@@ -1,52 +1,33 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const sheetId = "1QFLzxYMmlhg0SV8C1cEXPxo9CaM1YKgU8zmQL0ybeEk"; // Your Google Sheets ID
-    const apiKey = "AIzaSyBuVqvwSK-NK2-GXyAsbpN49a1RxajCKwc"; // Your Google Sheets API Key
+const sheetId = "1QFLzxYMmlhg0SV8C1cEXPxo9CaM1YKgU8zmQL0ybeEk"; 
+const apiKey = "YOUR_NEW_API_KEY"; // Replace with a new API key
 
-    // Define different sheets and their ranges
-    const sheets = [
-        { range: "Sheet1!A1:Z1000", elementId: "sheetData1", title: "Registered Students" },
-        { range: "Sheet2!A1:Z1000", elementId: "sheetData2", title: "ISKCON Group Members" }
-    ];
+async function fetchSheetData(sheetName, elementId) {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!A1:Z1000?key=${apiKey}`;
 
-    sheets.forEach(sheet => {
-        fetchSheetData(sheetId, sheet.range, apiKey, sheet.elementId, sheet.title);
-    });
-});
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-function fetchSheetData(sheetId, range, apiKey, elementId, title) {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+        const data = await response.json();
+        console.log(`${sheetName} Data:`, data);
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            displayData(data, elementId, title);
-        })
-        .catch(error => {
-            document.getElementById(elementId).innerHTML = "Error loading data.";
-            console.error("Error fetching data:", error);
-        });
-}
+        if (data.values) {
+            let html = `<table border='1'>`;
+            data.values.forEach(row => {
+                html += `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`;
+            });
+            html += `</table>`;
 
-function displayData(data, elementId, title) {
-    if (!data.values || data.values.length === 0) {
-        document.getElementById(elementId).innerHTML = "No data available.";
-        return;
+            document.getElementById(elementId).innerHTML = html;
+        } else {
+            document.getElementById(elementId).innerHTML = "No data found.";
+        }
+    } catch (error) {
+        console.error(`Error fetching ${sheetName}:`, error);
+        document.getElementById(elementId).innerHTML = `Error loading data from ${sheetName}`;
     }
-
-    let table = `<h2>${title}</h2><table border='1'>`;
-    data.values.forEach((row, index) => {
-        table += "<tr>";
-        row.forEach(cell => {
-            table += index === 0 ? `<th>${cell}</th>` : `<td>${cell}</td>`;
-        });
-        table += "</tr>";
-    });
-    table += "</table>";
-
-    document.getElementById(elementId).innerHTML = table;
 }
+
+// Load both sheets
+fetchSheetData("Sheet1", "sheet1Data");
+fetchSheetData("Sheet2", "sheet2Data");
