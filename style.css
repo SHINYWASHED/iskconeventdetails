@@ -1,0 +1,33 @@
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: blue;
+    color: white;
+    padding: 10px;
+    text-align: center;  /* Centers the heading text */
+    font-size: 18px;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center; /* Centers all table content */
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+body {
+    background: #f0f8ff;
+    font-family: Arial, sans-serif;
+}
