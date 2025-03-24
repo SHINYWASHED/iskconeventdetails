@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Define different sheets and their ranges
     const sheets = [
-        { range: "Sheet1!A1:Z1000", elementId: "sheetData1", title: "Registered Students" },
-        { range: "Sheet2!A1:Z1000", elementId: "sheetData2", title: "ISKCON Group Members" }
+        { range: "Sheet1!A1:Z1000", elementId: "sheetData1", title: "Attendance Sheet" },
+        { range: "Sheet2!A1:Z1000", elementId: "sheetData2", title: "Student Details" }
     ];
 
     sheets.forEach(sheet => {
