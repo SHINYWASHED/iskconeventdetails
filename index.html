@@ -8,17 +8,26 @@
 </head>
 <body>
 
-    <h1>ISKCON EVENT DATABASE</h1>
+    <h1>ISKCON Event Database</h1>
 
     <div class="container">
-        <div id="sheetData1"></div>
-        <div id="sheetData2"></div>
-        <div id="sheetData3"></div>
-        <div id="sheetData4"></div>
-        <div id="sheetData5"></div>
-    </div>
+        <div id="sheetData1">Loading data from Sheet 1...</div>
+        <div id="sheetData2">Loading data from Sheet 2...</div>
+        <div id="sheetData3">Loading data from Sheet 3...</div>
+        <div id="sheetData4">Loading data from Sheet 4...</div>
+        <div id="sheetData5">Loading data from Sheet 5...</div>
+        
+        <!-- QR Code -->
+        <div class="qr-container">
+            <p>Scan to Register For Upcoming Event:</p>
+            <img src="frame.png" alt="Registration QR Code" class="qr-code">
+        </div>
 
-    <button onclick="window.location.reload();">Refresh Data</button>
+        <!-- Registration Button -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4IPFzz7CZbgxp-P0xoSTLBujckZKZdnZWchwVd3_exkQkQQ/viewform?usp=header" target="_blank">
+            <button>Register Now</button>
+        </a>
+    </div>
 
     <script src="script.js"></script>
 
