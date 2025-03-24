@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Define different sheets and their ranges
     const sheets = [
         { range: "Sheet1!A1:Z1000", elementId: "sheetData1", title: "Registered Students" },
-        { range: "Sheet2!A1:Z1000", elementId: "sheetData2", title: "ISKCON Group Members" },
-        { range: "Sheet3!A1:Z1000", elementId: "sheetData3", title: "Event Volunteers" },
-        { range: "Sheet4!A1:Z1000", elementId: "sheetData4", title: "Sponsors" },
-        { range: "Sheet5!A1:Z1000", elementId: "sheetData5", title: "Guest List" }
+        { range: "Sheet2!A1:Z1000", elementId: "sheetData2", title: "Student Details" },
+        { range: "Sheet3!A1:Z1000", elementId: "sheetData3", title: "Not Decided" },
+        { range: "Sheet4!A1:Z1000", elementId: "sheetData4", title: "Not Decided" },
+        { range: "Sheet5!A1:Z1000", elementId: "sheetData5", title: "Not Decided" }
     ];
 
     // Fetch data for each sheet
