@@ -1,33 +1,110 @@
+/* Import Tailwind if needed */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles */
+body {
+    background: linear-gradient(120deg, #6a11cb, #2575fc);
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Table Styling */
 table {
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
-    background: white;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
 }
 
+/* Table Header */
 th {
-    background: blue;
+    background: linear-gradient(45deg, #007bff, #00c6ff);
     color: white;
-    padding: 10px;
-    text-align: center;  /* Centers the heading text */
+    padding: 12px;
+    text-align: center;
     font-size: 18px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
 }
 
+/* Hover effect on header */
+th:hover {
+    background: linear-gradient(45deg, #00c6ff, #007bff);
+    letter-spacing: 1px;
+}
+
+/* Table Cells */
 td {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
-    text-align: center; /* Centers all table content */
+    text-align: center;
+    transition: background 0.3s ease-in-out;
 }
 
+/* Row Hover Effect */
+tr:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.01);
+}
+
+/* Title Styling */
 h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 28px;
     margin-top: 20px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: slideIn 1s ease-in-out;
 }
 
-body {
-    background: #f0f8ff;
-    font-family: Arial, sans-serif;
+/* Button Style (If Needed) */
+button {
+    padding: 10px 20px;
+    margin: 20px;
+    border: none;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
